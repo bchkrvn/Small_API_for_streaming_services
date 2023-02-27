@@ -23,10 +23,11 @@ class BaseDAO(Generic[T]):
     def get_by_id(self, pk: int) -> Optional[T]:
         return self._db_session.query(self.__model__).get(pk)
 
-    def get_all(self, page: Optional[int] = None, status: Optional[str] = None) -> List[T]:
+    def get_by_email(self, email: str) -> Optional[T]:
+        return self._db_session.query(self.__model__).filter(self.__model__.email == email).first()
+
+    def get_all(self, page: Optional[int] = None) -> List[T]:
         stmt: BaseQuery = self._db_session.query(self.__model__)
-        if status == 'new':
-            stmt = stmt.order_by(desc(self.__model__.year))
         if page:
             try:
                 return stmt.paginate(page, self._items_per_page).items

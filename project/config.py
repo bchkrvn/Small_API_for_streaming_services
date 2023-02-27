@@ -14,6 +14,9 @@ class BaseConfig:
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    JWT_SECRET = b'secret'
+    JWT_ALGO = 'HS256'
+
     TOKEN_EXPIRE_MINUTES = 15
     TOKEN_EXPIRE_DAYS = 130
 
