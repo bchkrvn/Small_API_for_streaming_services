@@ -3,21 +3,21 @@ from flask_restx import Namespace, Resource
 from project.container import movie_service
 from project.helpers.decorators import auth_required
 from project.setup.api.models import movie
-from project.setup.api.parsers import page_parser
+from project.setup.api.parsers import movie_page_parser
 
-movies_ns = Namespace('movies')
+movies_ns = Namespace('movies', 'Получить информацию о фильмах')
 
 
 @movies_ns.route('/')
 class MoviesView(Resource):
-    @movies_ns.expect(page_parser)
+    @movies_ns.expect(movie_page_parser)
     @movies_ns.marshal_with(movie, as_list=True, code=200, description='OK')
     @auth_required
     def get(self):
         """
         Get all movies.
         """
-        return movie_service.get_all(**page_parser.parse_args())
+        return movie_service.get_all(**movie_page_parser.parse_args())
 
 
 @movies_ns.route('/<int:movie_id>/')

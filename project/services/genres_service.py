@@ -19,7 +19,7 @@ class GenresService:
             return genre
         raise ItemNotFound(f'Genre with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None,  status: Optional[str] = None) -> list[Genre]:
+    def get_all(self, page: Optional[int] = None) -> list[Genre]:
         """
         Получить все жанры
         :param page: номер страницы

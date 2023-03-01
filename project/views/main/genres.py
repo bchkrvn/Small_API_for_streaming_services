@@ -5,7 +5,7 @@ from project.helpers.decorators import auth_required
 from project.setup.api.models import genre
 from project.setup.api.parsers import page_parser
 
-genres_ns = Namespace('genres')
+genres_ns = Namespace('genres', "Получить информацию о жанрах")
 
 
 @genres_ns.route('/')

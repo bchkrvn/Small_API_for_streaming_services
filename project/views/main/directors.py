@@ -5,7 +5,7 @@ from project.helpers.decorators import auth_required
 from project.setup.api.models import director
 from project.setup.api.parsers import page_parser
 
-directors_ns = Namespace('directors')
+directors_ns = Namespace('directors', "Получить информацию о режиссерах")
 
 
 @directors_ns.route('/')

@@ -19,7 +19,7 @@ class DirectorsService:
             return director
         raise ItemNotFound(f'Director with pk={pk} not exists.')
 
-    def get_all(self, page: Optional[int] = None,  status: Optional[str] = None) -> list[Director]:
+    def get_all(self, page: Optional[int] = None) -> list[Director]:
         """
         Получить всех режиссеров
         :param page: страница

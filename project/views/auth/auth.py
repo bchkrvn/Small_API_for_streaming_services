@@ -3,7 +3,8 @@ from flask import request, abort
 
 from project.container import auth_service, user_service
 
-api = Namespace('auth')
+api = Namespace('auth', "Страница для регистрации нового пользователя,"
+                        "для его авторизации и обновления токена")
 
 
 @api.route('/register')

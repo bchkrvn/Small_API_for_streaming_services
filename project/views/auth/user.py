@@ -5,7 +5,8 @@ from project.container import user_service
 from project.helpers.decorators import user_required
 from project.models import UserSchema
 
-api = Namespace('users')
+api = Namespace('users', "Страница для получения информации о пользователе,"
+                         "обновления информации и обновления пароля")
 user_schema = UserSchema()
 
 
@@ -15,7 +16,6 @@ class UserViews(Resource):
     def get(self, user_email=None):
         """
         Получить информацию о пользователе
-        :param user_email: email пользователя из токена
         """
         user = user_service.get_by_email(user_email)
         return user_schema.dump(user), 200
@@ -24,7 +24,6 @@ class UserViews(Resource):
     def patch(self, user_email=None):
         """
         Обновление информации о пользователе
-        :param user_email: email пользователя из токена
         """
         user_data = request.json
         user_data['email'] = user_email
@@ -38,7 +37,6 @@ class UserPasswordViews(Resource):
     def put(self, user_email=None):
         """
         Обновление пароля пользователя
-        :param user_email:  email пользователя из токена
         """
         user_data = request.json
         user_data['email'] = user_email
