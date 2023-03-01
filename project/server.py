@@ -5,6 +5,7 @@ from project.exceptions import BaseServiceError
 from project.setup.api import api
 from project.setup.db import db
 from project.views import auth_ns, user_ns
+from project.views.favorites import favorite_ns
 from project.views.main.directors import directors_ns
 from project.views.main.genres import genres_ns
 from project.views.main.movies import movies_ns
@@ -32,6 +33,7 @@ def create_app(config_obj):
     api.add_namespace(genres_ns)
     api.add_namespace(directors_ns)
     api.add_namespace(movies_ns)
+    api.add_namespace(favorite_ns)
 
     app.register_error_handler(BaseServiceError, base_service_error_handler)
 
