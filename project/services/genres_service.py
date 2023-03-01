@@ -10,11 +10,21 @@ class GenresService:
         self.dao = dao
 
     def get_item(self, pk: int) -> Genre:
+        """
+        Получить жанр по его id
+        :param pk: id жанра
+        :return:  Genre
+        """
         if genre := self.dao.get_by_id(pk):
             return genre
         raise ItemNotFound(f'Genre with pk={pk} not exists.')
 
     def get_all(self, page: Optional[int] = None,  status: Optional[str] = None) -> list[Genre]:
+        """
+        Получить все жанры
+        :param page: номер страницы
+        :return: list[Genre]
+        """
         return self.dao.get_all(page=page)
 
 

@@ -13,6 +13,13 @@ class AuthService:
         self.user_service = user_service
 
     def generate_token(self, email, password, is_refresh=False) -> dict:
+        """
+        Генерация токена для пользователя
+        :param email: email пользователя
+        :param password: пароль пользователя
+        :param is_refresh: обновляется ли токен
+        :return: tokens
+        """
         user = self.user_service.get_by_email(email)
 
         if not user:
@@ -28,10 +35,12 @@ class AuthService:
             'email': user.email,
         }
 
+        # generate access_token
         min_ = datetime.datetime.utcnow() + datetime.timedelta(minutes=current_app.config["TOKEN_EXPIRE_MINUTES"])
         data['exp'] = calendar.timegm(min_.timetuple())
         access_token = jwt.encode(data, current_app.config["JWT_SECRET"], algorithm=current_app.config["JWT_ALGO"])
 
+        # generate refresh_token
         days_ = datetime.datetime.utcnow() + datetime.timedelta(days=current_app.config["TOKEN_EXPIRE_DAYS"])
         data['exp'] = calendar.timegm(days_.timetuple())
         refresh_token = jwt.encode(data, current_app.config["JWT_SECRET"], algorithm=current_app.config["JWT_ALGO"])
@@ -42,8 +51,14 @@ class AuthService:
         }
 
     def approve_refresh_token(self, refresh_token):
+        """
+        Обновления токена на основе refresh_token
+        :param refresh_token: refresh_token
+        :return: tokens
+        """
         try:
-            data = jwt.decode(refresh_token, current_app.config["JWT_SECRET"], algorithms=[current_app.config["JWT_ALGO"]])
+            data = jwt.decode(refresh_token, current_app.config["JWT_SECRET"],
+                              algorithms=[current_app.config["JWT_ALGO"]])
             email = data.get('email', None)
 
         except Exception as e:

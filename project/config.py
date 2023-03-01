@@ -1,7 +1,9 @@
 import base64
 import os
+import dotenv
 from pathlib import Path
 from typing import Type
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,12 +43,12 @@ class DevelopmentConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
-    # TODO: дополнить конфиг
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + BASE_DIR.joinpath('project.db').as_posix()
 
 
 class ConfigFactory:
-    flask_env = os.getenv('FLASK_ENV')
-    flask_env = 'development'
+
+    flask_env = os.getenv('FLASK_ENV', 'development')
 
     @classmethod
     def get_config(cls) -> Type[BaseConfig]:

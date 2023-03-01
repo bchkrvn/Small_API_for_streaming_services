@@ -15,6 +15,7 @@ marshmallow==3.16.0
 packaging==23.0
 PyJWT==2.4.0
 pyrsistent==0.19.3
+python-dotenv==1.0.0
 pytz==2022.7.1
 six==1.16.0
 SQLAlchemy==1.4.0

@@ -2,7 +2,7 @@ from flask_restx import Namespace, Resource
 from flask import request
 
 from project.container import user_service
-from project.helpers.decorators import auth_required, user_required
+from project.helpers.decorators import user_required
 from project.models import UserSchema
 
 api = Namespace('users')
@@ -13,11 +13,19 @@ user_schema = UserSchema()
 class UserViews(Resource):
     @user_required
     def get(self, user_email=None):
+        """
+        Получить информацию о пользователе
+        :param user_email: email пользователя из токена
+        """
         user = user_service.get_by_email(user_email)
         return user_schema.dump(user), 200
 
     @user_required
     def patch(self, user_email=None):
+        """
+        Обновление информации о пользователе
+        :param user_email: email пользователя из токена
+        """
         user_data = request.json
         user_data['email'] = user_email
         user_service.update_partial(user_data)
@@ -28,6 +36,10 @@ class UserViews(Resource):
 class UserPasswordViews(Resource):
     @user_required
     def put(self, user_email=None):
+        """
+        Обновление пароля пользователя
+        :param user_email:  email пользователя из токена
+        """
         user_data = request.json
         user_data['email'] = user_email
         user_service.change_password(user_data)

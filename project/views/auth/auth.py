@@ -9,11 +9,12 @@ api = Namespace('auth')
 @api.route('/register')
 class AuthRegister(Resource):
     def post(self):
+        """
+        Регистрация нового пользователя
+        """
         user_data = request.json
-
         if ['email', 'password'] != list(user_data.keys()):
             abort(400)
-
         user_service.create(user_data)
 
         return "", 201
@@ -22,6 +23,9 @@ class AuthRegister(Resource):
 @api.route('/login')
 class AuthLogin(Resource):
     def post(self):
+        """
+        Авторизация пользователя
+        """
         user_data = request.json
         if ['email', 'password'] != list(user_data.keys()):
             abort(400)
@@ -32,6 +36,9 @@ class AuthLogin(Resource):
         return auth_service.generate_token(email, password)
 
     def put(self):
+        """
+        Обновление токена на основе refresh_token
+        """
         tokens = request.json
 
         if 'refresh_token' not in tokens.keys():
