@@ -1,6 +1,5 @@
 import base64
 import os
-import dotenv
 from pathlib import Path
 from typing import Type
 
