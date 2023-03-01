@@ -66,6 +66,14 @@ class User(db.Model):
     genre = relationship('Genre')
 
 
+class UserSchema(Schema):
+    id = fields.Int(dump_only=True)
+    email = fields.Str()
+    name = fields.Str()
+    surname = fields.Str()
+    favorite_genre_id = fields.Int()
+
+
 class UserMovies(db.Model):
     __tablename__ = 'users_movies'
 
