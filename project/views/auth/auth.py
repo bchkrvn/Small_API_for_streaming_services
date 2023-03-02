@@ -7,7 +7,7 @@ api = Namespace('auth', "Страница для регистрации ново
                         "для его авторизации и обновления токена")
 
 
-@api.route('/register')
+@api.route('/register/')
 class AuthRegister(Resource):
     def post(self):
         """
@@ -21,7 +21,7 @@ class AuthRegister(Resource):
         return "", 201
 
 
-@api.route('/login')
+@api.route('/login/')
 class AuthLogin(Resource):
     def post(self):
         """
@@ -34,7 +34,7 @@ class AuthLogin(Resource):
         email = user_data.get('email')
         password = user_data.get('password')
 
-        return auth_service.generate_token(email, password)
+        return auth_service.generate_token(email, password), 200
 
     def put(self):
         """
@@ -45,5 +45,5 @@ class AuthLogin(Resource):
         if 'refresh_token' not in tokens.keys():
             abort(400)
 
-        return auth_service.approve_refresh_token(tokens['refresh_token'])
+        return auth_service.approve_refresh_token(tokens['refresh_token']), 200
 

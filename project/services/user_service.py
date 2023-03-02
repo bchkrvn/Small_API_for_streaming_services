@@ -36,8 +36,14 @@ class UsersService:
         :param data: данные о пользователе
         """
         data['password'] = generate_password_hash(data.get('password'))
+
+        if self.is_user(data.get('email')):
+            abort(400)
         new_user = User(**data)
         self.user_dao.save(new_user)
+
+    def is_user(self, email):
+        return bool(self.user_dao.get_by_email(email))
 
     def update_partial(self, data):
         """
@@ -46,8 +52,6 @@ class UsersService:
         """
         user = self.get_by_email(data['email'])
 
-        if 'password' in data:
-            user.password = data.get('password')
         if 'name' in data:
             user.name = data.get('name')
         if 'surname' in data:
@@ -64,6 +68,7 @@ class UsersService:
         """
         user = self.get_by_email(user_data['email'])
         password = user_data['password_1']
+
 
         if compose_passwords(user.password, password):
             new_password = generate_password_hash(user_data['password_2'])

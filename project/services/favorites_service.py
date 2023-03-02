@@ -12,6 +12,9 @@ class UserMoviesService:
         self.user_service = user_service
         self.movies_service = movies_service
 
+    def get_all(self):
+        return self.user_movies_dao.get_all()
+
     def add_to_favorites(self, movie_id: int, user_email: str):
         """
         Добавляет фильм в список избранных для пользователя
