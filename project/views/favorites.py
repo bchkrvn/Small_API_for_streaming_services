@@ -3,7 +3,7 @@ from flask_restx import Namespace, Resource
 from project.container import user_movie_service
 from project.helpers.decorators import user_required
 
-favorite_ns = Namespace('favorites')
+favorite_ns = Namespace('favorites', "Страница для добавления фильма в избранные")
 
 
 @favorite_ns.route('/movies/<int:movie_id>')

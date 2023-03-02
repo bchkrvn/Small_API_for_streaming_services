@@ -28,3 +28,10 @@ def db(app):
 def client(app, db):
     with app.test_client() as client:
         yield client
+
+
+@pytest.fixture
+def headers():
+    headers = {
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im5pa2l0YSIsImV4cCI6MTY4ODk3MTQzMH0.-2rr8484beZ8NESao1M6yPzxCLaQXYA--Cj2B5u5Bp0'}
+    return headers
