@@ -12,7 +12,7 @@ genres_ns = Namespace('genres', "Получить информацию о жан
 class GenresView(Resource):
     @genres_ns.expect(page_parser)
     @genres_ns.marshal_with(genre, as_list=True, code=200, description='OK')
-    @auth_required
+    # @auth_required
     def get(self):
         """
         Get all genres.
@@ -24,7 +24,7 @@ class GenresView(Resource):
 class GenreView(Resource):
     @genres_ns.response(404, 'Not Found')
     @genres_ns.marshal_with(genre, code=200, description='OK')
-    @auth_required
+    # @auth_required
     def get(self, genre_id: int):
         """
         Get genre by id.

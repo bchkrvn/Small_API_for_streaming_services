@@ -58,6 +58,10 @@ class UserDAO(BaseDAO[User]):
 class UserMoviesDAO(BaseDAO[UserMovies]):
     __model__ = UserMovies
 
+    def get_user_favorite(self, user):
+        return self._db_session.query(self.__model__).filter(self.__model__.user == user).all()
+
+
     def get_favorite(self, movie: Movie, user: User):
         """
         Получить запись об избранном

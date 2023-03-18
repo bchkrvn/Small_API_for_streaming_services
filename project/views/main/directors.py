@@ -12,7 +12,7 @@ directors_ns = Namespace('directors', "Получить информацию о 
 class DirectorsView(Resource):
     @directors_ns.expect(page_parser)
     @directors_ns.marshal_with(director, as_list=True, code=200, description='OK')
-    @auth_required
+    # @auth_required
     def get(self):
         """
         Get all directors.
@@ -24,7 +24,7 @@ class DirectorsView(Resource):
 class DirectorView(Resource):
     @directors_ns.response(404, 'Not Found')
     @directors_ns.marshal_with(director, code=200, description='OK')
-    @auth_required
+    # @auth_required
     def get(self, director_id: int):
         """
         Get director by id.
