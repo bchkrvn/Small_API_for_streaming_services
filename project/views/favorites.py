@@ -8,7 +8,6 @@ from project.container import movie_service
 favorite_ns = Namespace('favorites', "Страница для добавления фильма в избранные")
 
 
-
 @favorite_ns.route('/movies/')
 class FavoritesView(Resource):
     @favorite_ns.marshal_with(movie, as_list=True, code=200, description='OK')

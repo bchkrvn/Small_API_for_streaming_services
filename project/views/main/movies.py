@@ -12,7 +12,7 @@ movies_ns = Namespace('movies', 'Получить информацию о фил
 class MoviesView(Resource):
     @movies_ns.expect(movie_page_parser)
     @movies_ns.marshal_with(movie, as_list=True, code=200, description='OK')
-    # @auth_required
+    @auth_required
     def get(self):
         """
         Get all movies.
@@ -24,7 +24,7 @@ class MoviesView(Resource):
 class MovieView(Resource):
     @movies_ns.response(404, 'Not Found')
     @movies_ns.marshal_with(movie, code=200, description='OK')
-    # @auth_required
+    @auth_required
     def get(self, movie_id: int):
         """
         Get movie by id.
