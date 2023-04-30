@@ -2,9 +2,11 @@ import base64
 import os
 from pathlib import Path
 from typing import Type
+import dotenv
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv.load_dotenv(override=True)
 
 
 class BaseConfig:
@@ -47,7 +49,7 @@ class ProductionConfig(BaseConfig):
 
 class ConfigFactory:
 
-    flask_env = os.getenv('FLASK_ENV', 'development')
+    flask_env = os.environ.get('FLASK_ENV')
 
     @classmethod
     def get_config(cls) -> Type[BaseConfig]:
